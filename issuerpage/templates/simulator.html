@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Title</title>
+</head>
+<body>
+    <form enctype="form-data" method="post" action="{% url 'initotp' %}">
+        {% csrf_token %}
+        <br>AccuCardholderId=<br><input type="text" name="AccuCardholderId" id="AccuCardholderId">
+        <br>AccuGuid=<br><input type="text" name="AccuGuid" id="AccuGuid">
+        <br>AccuReturnURL=<br><input type="text" name="AccuReturnURL" id="AccuReturnURL">
+        <br>session=<br><input type="text" name="session" id="session">
+        <br>AccuRequestId=<br><input type="text" name="AccuRequestId" id="AccuRequestId">
+        <br> <br>
+            <label for="AccuCardholderId"> Enter some values. Make sure AccuReturnURL is http://localhost:8000/termurl/ for successful simulation.</label>
+        <br> <br>
+        <input type="submit" value="submit">
+    </form>
+</body>
+</html>

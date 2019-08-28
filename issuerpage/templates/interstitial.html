@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+            function postTo(path, params, method='post') {
+                console.log("Start post to "+path);
+                const form = document.createElement('form');
+                form.method = method;
+                form.action = path;
+                for (const key in params) {
+                    if (params.hasOwnProperty(key)) {
+                        const hiddenField = document.createElement('input');
+                        hiddenField.type = 'hidden';
+                        hiddenField.name = key;
+                        hiddenField.value = params[key];
+                        form.appendChild(hiddenField);
+                    }
+                }
+                document.body.appendChild(form);
+                form.submit();
+                console.log("Done post to "+path);
+            }
+       </script>
+</head>
+<body onload="return postTo({{ AccuReturnURL }},{ AccuGuid: {{ AccuGuid }}, session:{{ session  }}, AccuRequestId: {{ AccuRequestId }}, AccuResponseCode: {{ AccuResponseCode }} });">
+
+</body>
+</html>

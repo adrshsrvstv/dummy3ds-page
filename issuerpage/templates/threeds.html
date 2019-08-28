@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        ENTER OTP HERE.
+    </head>
+    <br><br>
+    <body>
+
+        <br>AccuCardholderId={{ AccuCardholderId }} <br>
+        <br>AccuGuid={{ AccuGuid }}<br>
+        <br>AccuReturnURL={{ AccuReturnURL }}<br>
+        <br>session={{ session }}<br>
+        <br>AccuRequestId={{ AccuRequestId }}<br>
+        <br>AccuResponseCode={{ AccuResponseCode }}<br>
+        <br><br>
+        <br><br>
+        <form enctype="form-data" method="post" action="{% url 'submitotp' %}">
+            {% csrf_token %}
+            <input type="text" name="otp" id="otp">
+            <br> <br>
+            <label for="fileupload"> Enter 1234 for a SUCCESS response, 0000 for FAILURE.</label>
+            <br> <br>
+            <input type="submit" value="submit">
+        </form>
+
+    </body>
+</html>
