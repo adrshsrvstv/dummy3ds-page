@@ -69,7 +69,7 @@ def submitotp(request):
         if request.POST.get('otp') == '1234':
             AccuResponseCode="\'ACCU000\'"
         elif request.POST.get('otp') == '0000':
-            AccuResponseCode="\'ACCU001\'"
+            AccuResponseCode="\'ACCU100\'"
         context = {'AccuCardholderId': AccuCardholderId, 'AccuGuid': AccuGuid, 'AccuReturnURL': AccuReturnURL, 'session':session, 'AccuRequestId': AccuRequestId, 'AccuResponseCode': AccuResponseCode}
         return render(request, 'interstitial.html', context)
 
