@@ -44,7 +44,9 @@ def initotp(request):
         context = {'AccuCardholderId': AccuCardholderId, 'AccuGuid': AccuGuid, 'AccuReturnURL': AccuReturnURL, 'session':session, 'AccuRequestId': AccuRequestId, 'AccuResponseCode':AccuResponseCode  }
         AccuCardholderId="\""+request.POST.get('AccuCardholderId')+"\""
         AccuGuid = "\""+request.POST.get('AccuGuid')+"\""
-        AccuReturnURL = "\""+request.POST.get('AccuReturnURL')+"\""
+        AccuReturnURL = request.POST.get('AccuReturnURL')
+        if str(AccuReturnURL).startswith('http://') or str(AccuReturnURL).startswith('https://'):
+            AccuReturnURL = "\""+request.POST.get('AccuReturnURL')+"\""
         session = "\""+request.POST.get('session')+"\""
         AccuRequestId = "\""+request.POST.get('AccuRequestId')+"\""
 
@@ -70,8 +72,14 @@ def submitotp(request):
             AccuResponseCode="\'ACCU000\'"
         elif request.POST.get('otp') == '0000':
             AccuResponseCode="\'ACCU100\'"
-        context = {'AccuCardholderId': AccuCardholderId, 'AccuGuid': AccuGuid, 'AccuReturnURL': AccuReturnURL, 'session':session, 'AccuRequestId': AccuRequestId, 'AccuResponseCode': AccuResponseCode}
-        return render(request, 'interstitial.html', context)
+
+        context = {'AccuCardholderId': AccuCardholderId, 'AccuGuid': AccuGuid, 'AccuReturnURL': AccuReturnURL, 'session': session, 'AccuRequestId': AccuRequestId,
+                   'AccuResponseCode': AccuResponseCode}
+        if str(AccuReturnURL).startswith('\"http://') or str(AccuReturnURL).startswith('\"https://'):
+            return render(request, 'interstitial.html', context)
+        else:
+            return render(request, 'webview_submit.html', context)
+
 
 
     if request.method == 'GET':

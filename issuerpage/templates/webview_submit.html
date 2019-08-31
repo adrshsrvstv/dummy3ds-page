@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Venice page</title>
+</head>
+<body onload="javascript:(function(){ {{ AccuReturnURL }} })();">
+
+    <form enctype="form-data" method="post" name="otp_submit" onsubmit="javascript:(function(){ {{ AccuReturnURL }} })();">
+        {% csrf_token %}
+        <input type="hidden" name="AccuRequestId" value="{{ AccuRequestId }}">
+        <input type="hidden" name="AccuGuid" value="{{ AccuGuid }}">
+        <input type="hidden" name="session" value="{{ session }}">
+        <input type="hidden" name="AccuResponseCode" value="{{ AccuResponseCode }}">
+        <input type="hidden" value="submit">
+    </form>
+</body>
+</html>
