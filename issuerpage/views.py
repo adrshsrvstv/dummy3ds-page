@@ -42,13 +42,11 @@ def initotp(request):
 
     if request.method == 'POST':
         context = {'AccuCardholderId': AccuCardholderId, 'AccuGuid': AccuGuid, 'AccuReturnURL': AccuReturnURL, 'session':session, 'AccuRequestId': AccuRequestId, 'AccuResponseCode':AccuResponseCode  }
-        AccuCardholderId="\""+request.POST.get('AccuCardholderId')+"\""
-        AccuGuid = "\""+request.POST.get('AccuGuid')+"\""
+        AccuCardholderId=request.POST.get('AccuCardholderId')
+        AccuGuid = request.POST.get('AccuGuid')
         AccuReturnURL = request.POST.get('AccuReturnURL')
-        if str(AccuReturnURL).startswith('http://') or str(AccuReturnURL).startswith('https://'):
-            AccuReturnURL = "\""+request.POST.get('AccuReturnURL')+"\""
-        session = "\""+request.POST.get('session')+"\""
-        AccuRequestId = "\""+request.POST.get('AccuRequestId')+"\""
+        session = request.POST.get('session')
+        AccuRequestId = request.POST.get('AccuRequestId')
 
         return redirect(initotp)
 
@@ -67,15 +65,15 @@ def submitotp(request):
 
     # save the params provided, look at the otp. Based on OTP, populate AccuResponseCode and post to termURL
     if request.method == 'POST':
-        AccuResponseCode="\'NULL\'"
+        AccuResponseCode="NULL"
         if request.POST.get('otp') == '1234':
-            AccuResponseCode="\'ACCU000\'"
+            AccuResponseCode="ACCU000"
         elif request.POST.get('otp') == '0000':
-            AccuResponseCode="\'ACCU100\'"
+            AccuResponseCode="ACCU100"
 
         context = {'AccuCardholderId': AccuCardholderId, 'AccuGuid': AccuGuid, 'AccuReturnURL': AccuReturnURL, 'session': session, 'AccuRequestId': AccuRequestId,
                    'AccuResponseCode': AccuResponseCode}
-        if str(AccuReturnURL).startswith('\"http://') or str(AccuReturnURL).startswith('\"https://'):
+        if str(AccuReturnURL).startswith('http://') or str(AccuReturnURL).startswith('https://'):
             return render(request, 'interstitial.html', context)
         else:
             return render(request, 'webview_submit.html', context)
